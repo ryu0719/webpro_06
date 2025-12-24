@@ -8,11 +8,14 @@
   <h2><%= data.name %>の詳細</h2>
   <table>
     <tr><th>項目</th><th>データ</th></tr>
-    <tr><td>ID</td><td><%= data.id %></td></tr>
     <tr><td>名前</td><td><%= data.name %></td></tr>
-    <tr><td>特徴</td><% deta.chara</tr>
-    <tr><td>討伐最適性武器</td><td><%= data.mm %></td></tr>
-    <tr><td>討伐方法</td><td><%= data.deth %></td></tr>
+    
+    <tr><td>種類</td><td><%= data.kind %></td></tr>
+    
+    <tr><td>攻撃方法</td><td><%= data.attack %></td></tr>
+    <tr><td>正規討伐方法</td><td><%= data.deth %></td></tr>
+    
+    <tr><td>別途討伐方法</td><td><%= data.power %></td></tr>
   </table>
   <a href="/samoran">サーモンラン敵一覧に戻る</a>
 </body>
