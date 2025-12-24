@@ -17,6 +17,8 @@
     
     <tr><td>別途討伐方法</td><td><%= data.power %></td></tr>
   </table>
+  <a href="/samoran/edit/<%= id %>">編集</a>
+  <a href="/samoran/delete/<%= id %>" onclick="return confirm('本当に削除しますか？');">削除</a>
   <a href="/samoran">サーモンラン敵一覧に戻る</a>
 </body>
 </html>

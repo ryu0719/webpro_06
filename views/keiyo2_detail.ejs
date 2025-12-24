@@ -8,13 +8,19 @@
   <h2><%= data.name %>の詳細</h2>
   <table>
     <tr><th>項目</th><th>データ</th></tr>
-    <tr><td>ID</td><td><%= data.code %></td></tr>
-    <tr><td>駅名</td><td><%= data.name %></td></tr>
-    <tr><td>乗り換え線</td><td><%= data.change %></td></tr>
-    <tr><td>東京駅からの距離</td><td><%= data.distance %></td></tr>
+    <tr><td>名前</td><td><%= data.name %></td></tr>
+    
+    <tr><td>種類</td><td><%= data.kind %></td></tr>
+    
+    <tr><td>攻撃方法</td><td><%= data.attack %></td></tr>
+    <tr><td>正規討伐方法</td><td><%= data.deth %></td></tr>
+    
+    <tr><td>別途討伐方法</td><td><%= data.power %></td></tr>
   </table>
-  <a href="/keiyo2/edit/<%= data.id %>">編集</a>
-  <a href="/keiyo2/delete/<%= data.id %>" onclick="return confirm('本当に削除しますか？');">削除</a>
-  <a href="/keiyo2">駅一覧に戻る</a>
+  <a href="/samoran/edit/<%= id %>">編集</a>
+
+  <a href="/samoran/delete/<%= id %>" onclick="return confirm('本当に削除しますか？');">削除</a>
+  
+  <a href="/samoran">サーモンラン敵一覧に戻る</a>
 </body>
 </html>

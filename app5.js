@@ -94,15 +94,6 @@ app.get("/keiyo", (req, res) => {
 //   res.render('db2', { data: station });
 // });
 
-app.get("/samoran",(req,res) =>{
-  res.render('samoran',{data:samochara});
-});
-
-app.get("/samoran/:number",(req,res)=>{
-  const number = req.params.number;
-  const detail = samochara[number];
-  res.render('samoran_detail',{data:detail});
-});
 
 let samochara = [
   { id:1, name:"シャケ",kind:'雑魚シャケ',attack:'近づいて殴ってくる',deth:'インクショットを与える',power:'なし'},
@@ -127,6 +118,55 @@ let samochara = [
   { id:20, name:"オカシラ連合",kind:'オカシラシャケ',attack:'ヨコヅナ，タツ，ジョーが同時に出てきてそれぞれの攻撃を行う',deth:'それぞれのオカシラシャケをそれぞれの方法で討伐する',power:'ジョーの攻撃でヨコヅナとタツの爆弾を巻き込むことで二つを倒し，ジョーは弱点を攻撃し続けて三体目も倒す'},
 ];
 
+app.get("/samoran",(req,res) =>{
+  res.render('samoran',{data:samochara});
+});
+
+app.get("/samoran/create",(req,res)=>{
+  res.redirect('/public/samoran_new.html');
+});
+
+app.get("/samoran/:number",(req,res)=>{
+  const number = req.params.number;
+  const detail = samochara[number];
+  res.render('samoran_detail',{id:number,data:detail});
+});
+
+app.get("/samoran/delete/:number",(req,res)=>{
+  samochara.splice( req.params.number, 1 );
+  res.redirect('/samoran');
+});
+
+app.post("/samoran",(req,res)=>{
+  const id = samochara.length + 1;
+  const code = req.body.code;
+  const name = req.body.name;
+  const kind = req.body.kind;
+  const attack = req.body.attack;
+  const deth = req.body.deth;
+  const power = req.body.power;
+  samochara.push({ id: id, code: code, name: name, kind: kind, attack: attack, deth: deth, power: power});
+  console.log(samochara);
+  res.render('samoran',{data: samochara});
+});
+
+app.get("/samoran/edit/:number", (req, res) => {
+  const number = req.params.number;
+  const detail = samochara[number];
+  res.render('samoran_edit', { number: number, data: detail });
+});
+
+app.post("/samoran/update/:number", (req, res) => {
+  const number = req.params.number;
+  if (samochara[number]) {
+    samochara[number].name = req.body.name;
+    samochara[number].kind = req.body.kind;
+    samochara[number].attack = req.body.attack;
+    samochara[number].deth = req.body.deth;
+    samochara[number].power = req.body.power;
+  }
+  res.redirect('/samoran');
+});
 
 
 app.get("/keiyo_add", (req, res) => {
