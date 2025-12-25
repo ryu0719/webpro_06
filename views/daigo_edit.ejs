@@ -1,0 +1,26 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/daigo/update/<%= number %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+      <tr><td>ID</td><td><input type="text" name="code" value="<%= data.id %>"></td></tr>
+      <tr><td>キャラ名</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+      <tr><td>キャラの本名</td><td><input type="text" name="real" value="<%= data.real %>"></td></tr>
+      <tr><td>誕生日</td><td><input type="text" name="birth" value="<%= data.birth %>"></td></tr>
+      <tr><td>使用武器</td><td><input type="text" name="weapon" value="<%= data.weapon %>"></td></tr>
+      <tr><td>別途攻撃武器</td><td><input type="text" name="subw" value="<%= data.subw %>"></td></tr>
+      <tr><td>キャラの強み</td><td><input type="text" name="str" value="<%= data.str %>"></td></tr>
+      <tr><td>キャラの弱点</td><td><input type="text" name="less" value="<%= data.less %>"></td></tr>
+      <tr><td>キャラの操作難易度(最大３)</td><td><input type="text" name="dif" value="<%= data.dif %>"></td></tr>
+    </table>
+    <input type="submit" values="登録">
+  </form>
+  <a href="/daigo/">ハンター一覧に戻る</a>
+</body>
+</html>

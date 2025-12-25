@@ -159,6 +159,7 @@ app.get("/samoran/edit/:number", (req, res) => {
 app.post("/samoran/update/:number", (req, res) => {
   const number = req.params.number;
   if (samochara[number]) {
+    samochara[number].id = req.body.code;
     samochara[number].name = req.body.name;
     samochara[number].kind = req.body.kind;
     samochara[number].attack = req.body.attack;
@@ -168,6 +169,101 @@ app.post("/samoran/update/:number", (req, res) => {
   res.redirect('/samoran');
 });
 
+
+
+let hunter = [
+  {id:1, name:"復讐者",real: "レオ",birth: "12/21",weapon:"サメ人形",subw:"恨みの力",str:"救助狩り",less:"チェイス",dif:1.5},
+  {id:2, name:"道化師",real: "ジョーカー",birth: "8/4",weapon:"ドリル",subw:"なし",str:"チェイス",less:"チェイス粘着",dif:1.0},
+  {id:3, name:"断罪狩人",real: "ベイン",birth: "5/21",weapon:"チェーンクロウ",subw:"罠",str:"単体チェイス",less:"複数人チェイス",dif:2.0},
+  {id:4, name:"リッパー",real: "ジャック",birth: "8/7",weapon:"刃",subw:"霧の刃",str:"壁打ち抜き",less:"粘着対処",dif:1.0},
+  {id:5, name:"結魂者",real: "ヴィオレッタ",birth: "1/2",weapon:"義手",subw:"蜘蛛糸",str:"ぐるぐるチェイス",less:"スタン",dif:1.5},
+  {id:6, name:"芸者",real: "美智子",birth: "2/28",weapon:"扇子",subw:"なし",str:"単体チェイス",less:"複数人チェイス",dif:1.5},
+  {id:7, name:"白黒無常",real: "謝必安/范無咎",birth: "旧暦7/15",weapon:"傘",subw:"なし",str:"暗号機守り",less:"風船粘着対処",dif:2.0},
+  {id:8, name:"写真家",real: "ジョゼフ",birth: "3/11",weapon:"剣",subw:"写真世界",str:"暗号機守り",less:"回復",dif:2.5},
+  {id:9, name:"狂眼",real: "バルク",birth: "11/27",weapon:"杖",subw:"仕掛け壁",str:"暗号機守り，救助阻止",less:"チェイス力",dif:3.0},
+  {id:10, name:"黄衣の王",real: "ハスター",birth: "1/24",weapon:"触手",subw:"なし",str:"救助狩り",less:"複数人チェイス",dif:1.5},
+  {id:11, name:"夢の魔女",real: "イドーラ/信徒",birth: "10/2",weapon:"信徒のツルハシ",subw:"なし",str:"暗号機守り",less:"回復",dif:3.0},
+  {id:12, name:"泣き虫",real: "ロビー",birth: "4/25",weapon:"斧",subw:"魂",str:"チェイス，粘着対処",less:"暗号機守り",dif:2.0},
+  {id:13, name:"魔トカゲ",real: "ルキノ・ドゥルギ",birth: "11/13",weapon:"ナイフ",subw:"ヒップドロップ",str:"救助狩り",less:"粘着対処",dif:2.0},
+  {id:14, name:"血の女王",real: "マリー",birth: "11/2",weapon:"ガラスの破片",subw:"鏡像",str:"単体チェイス，暗号機守り",less:"複数人チェイス",dif:2.0},
+  {id:15, name:"ガードNo.26",real: "ボンボン",birth: "8/8",weapon:"鉄棍棒",subw:"爆弾",str:"救助狩り",less:"距離チェイス",dif:2.0},
+  {id:16, name:"「使徒」",real: "アン",birth: "8/11",weapon:"十字架",subw:"なし",str:"ぐるぐるチェイス",less:"距離チェイス",dif:2.0},
+  {id:17, name:"ヴァイオリニスト",real: "アントニオ",birth: "10/27",weapon:"ヴァイオリン",subw:"弦",str:"救助狩り",less:"距離チェイス",dif:1.5},
+  {id:18, name:"彫刻師",real: "ガラテア",birth: "11/17",weapon:"彫刻刀",subw:"石像",str:"救助狩り，暗号機守り",less:"チェイス粘着",dif:2.5},
+  {id:19, name:"「アンデット」",real: "ペルシー",birth: "5/18",weapon:"大剣",subw:"なし",str:"距離チェイス",less:"回復，ぐるぐるチェイス",dif:1.5},
+  {id:20, name:"破輪",real: "ウィル三兄弟",birth: "11/25",weapon:"鉄の車輪",subw:"刺",str:"チェイス，暗号機守り",less:"救助狩り",dif:3.0},
+  {id:21, name:"漁師",real: "グレイス",birth: "4/2",weapon:"銛",subw:"湿気",str:"救助狩り",less:"チェイス粘着",dif:2.0},
+  {id:22, name:"蝋人形師",real: "フィリップ",birth: "4/16",weapon:"蝋の発射口",subw:"熱蝋",str:"粘着対処",less:"壁粘着",dif:2.0},
+  {id:23, name:"「悪夢」",real: "「オルフェウス」",birth: "4/2",weapon:"爪",subw:"なし",str:"チェイス，粘着対処",less:"壁粘着",dif:1.5},
+  {id:24, name:"書記官",real: "キーガン",birth: "1/21",weapon:"杖",subw:"記録",str:"暗号機守り",less:"粘着対処",dif:3.0},
+  {id:25, name:"隠者",real: "アルヴァ・ロレンツ",birth: "4/20",weapon:"杖",subw:"なし",str:"暗号機負荷，粘着対処",less:"回復",dif:2.0},
+  {id:26, name:"夜の番人",real: "イタカ",birth: "12/7",weapon:"斧と杖が一体化したもの",subw:"なし",str:"チェイス",less:"暗号機守り，粘着対処",dif:1.5},
+  {id:27, name:"オペラ歌手",real: "サングリア",birth: "9/28",weapon:"サメ人形",subw:"恨みの力",str:"チェイス，暗号機守り",less:"ぐるぐるチェイス",dif:2.5},
+  {id:28, name:"「フールズ・ゴールド」",real: "ノートン・キャンベル",birth: "3/19",weapon:"ツルハシ",subw:"なし",str:"暗号機負荷",less:"粘着対処",dif:1.5},
+  {id:29, name:"時空の影",real: "アイヴィ",birth: "10/21",weapon:"杖",subw:"なし",str:"粘着対処，暗号機負荷",less:"回復",dif:3.0},
+  {id:30, name:"「足萎えの羊」",real: "ジェフリー・ボナビータ",birth: "10/4",weapon:"鎌",subw:"なし",str:"単体チェイス",less:"複数人チェイス",dif:2.5},
+  {id:31, name:"「フラバルー」",real: "マイク・モートン",birth: "6/1",weapon:"曲芸玉",subw:"なし",str:"チェイス",less:"粘着対処",dif:2.0},
+  {id:32, name:"雑貨賞",real: "バレンティナ・ヤガ・ヴァシーリエヴァ",birth: "不明",weapon:"杖",subw:"砕石売買",str:"チェイス，救助狩り",less:"複数人チェイス",dif:2.0},
+  {id:33, name:"「ビリヤード・プレイヤー」",real: "マーカス・ソーン",birth: "不明",weapon:"キュー",subw:"なし",str:"暗号機負荷",less:"高低差チェイス",dif:2.5},
+  {id:34, name:"「女王蜂」",real: "メリー・プリニウス",birth: "12/22",weapon:"素手",subw:"毒針",str:"チェイス，救助狩り",less:"高低差チェイス",dif:2.0},
+];
+
+app.get("/daigo",(req,res)=>{
+  res.render('daigo',{data:hunter});
+});
+
+app.get("/daigo/create",(req,res)=>{
+  res.redirect('/public/daigo_new.html');
+});
+
+app.get("/daigo/:number",(req,res)=>{
+  const number = req.params.number;
+  const detail = hunter[number];
+  res.render('daigo_detail',{id:number,data:detail});
+});
+
+app.get("/daigo/delete/:number",(req,res)=>{
+  hunter.splice(req.params.number,1);
+  res.redirect('/daigo');
+});
+
+app.post("/daigo",(req,res)=>{
+  const id = hunter.length + 1;
+  const code = req.body.code;
+  const name = req.body.name;
+  const real = req.body.real;
+  const birth = req.body.birth;
+  const weapon = req.body.weapon;
+  const subw = req.body.subw;
+  const str = req.body.str;
+  const less = req.body.less;
+  const dif = req.body.dif;
+  hunter.push({ id: id, code: code, name: name, real:real, birth: birth, weapon: weapon, subw:subw,str: str,less:less,dif: dif});
+  console.log(hunter);
+  res.render('daigo',{data: hunter});
+});
+
+app.get("/daigo/edit/:number", (req, res) => {
+  const number = req.params.number;
+  const detail = hunter[number];
+  res.render('daigo_edit', { number: number, data: detail });
+});
+
+app.post("/daigo/update/:number", (req, res) => {
+  const number = req.params.number;
+  if (hunter[number]) {
+    hunter[number].id = req.body.code;
+    hunter[number].name = req.body.name;
+    hunter[number].real = req.body.real;
+    hunter[number].birth = req.body.birth;
+    hunter[number].weapon = req.body.weapon;
+    hunter[number].subw = req.body.subw; 
+    hunter[number].str = req.body.str;
+    hunter[number].less = req.body.less;
+    hunter[number].dif = req.body.dif;
+  }
+  res.redirect('/daigo');
+});
 
 app.get("/keiyo_add", (req, res) => {
   let id = req.query.id;

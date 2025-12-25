@@ -1,0 +1,24 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2><%= data.name %>の詳細</h2>
+  <table>
+    <tr><th>項目</th><th>データ</th></tr>
+    <tr><td>キャラ名</td><td><%= data.name %></td></tr>
+    <tr><td>キャラの本名</td><td><%= data.real %></td></tr>
+    <tr><td>誕生日</td><td><%= data.birth %></td></tr>
+    <tr><td>使用武器</td><td><%= data.weapon %></td></tr> 
+    <tr><td>別途攻撃武器</td><td><%= data.subw %></td></tr>
+    <tr><td>キャラの強み</td><td><%= data.str %></td></tr>
+    <tr><td>キャラの弱点</td><td><%= data.less %></td></tr> 
+    <tr><td>キャラの操作難易度(最大３)</td><td><%= data.dif %></td></tr>
+  </table>
+  <a href="/daigo/edit/<%= id %>">編集</a>
+  <a href="/daigo/delete/<%= id %>" onclick="return confirm('本当にこのハンターを削除しますか？');">削除</a>
+  <a href="/daigo">ハンター一覧に戻る</a>
+</body>
+</html>

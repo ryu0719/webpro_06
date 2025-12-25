@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録</title>
+</head>
+<body>
+    <form action="/daigo" method="POST">
+        <input type="text" name="name" required>
+        <label for="名前">:キャラ名</label><br>
+        <input type="text" name="real">
+        <label for="本名">:キャラ本名</label><br>
+        <input type="text" name="birth" required>
+        <label for="誕生日">:誕生日</label><br>
+        <input type="text" name="weapon" required>
+        <label for="攻撃武器">:攻撃武器</label><br>
+        <input type="text" name="subw" required>
+        <label for="別途攻撃武器">:別途攻撃武器</label><br>
+        <input type="text" name="str" required>
+        <label for="キャラの強み">:キャラの強み</label><br>
+        <input type="text" name="less" required>
+        <label for="キャラの弱点">:キャラの弱点</label><br>
+        <input type="text" name="dif" required>
+        <label for="キャラ操作難易度">:キャラ操作難易度(最大３)</label><br>
+        <input type="submit" values="登録">
+    </form>
+</body>
+</html>
