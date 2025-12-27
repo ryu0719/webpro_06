@@ -1,0 +1,269 @@
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+
+\usepackage[uplatex,deluxe]{otf} % UTF
+\usepackage[noalphabet]{pxchfon} % must be after otf package
+\usepackage{stix2} %欧文＆数式フォント
+\usepackage[fleqn,tbtags]{mathtools} % 数式関連 (w/ amsmath)
+\usepackage{hira-stix} % ヒラギノフォント＆STIX2 フォント代替定義（Warning回避）
+\usepackage{ascmac}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{float}
+
+\begin{document}
+\title{Webプログラミング仕様書}
+\author{25G1133 山本龍之介}
+\maketitle
+\section{GithabのURL}
+\url{}
+
+\section{利用者向け仕様書}
+\subsection{概要}
+本仕様書はプロダンスリーグ「D.LEAGUE」に現在参画している全14チームを一覧表示し，編集・閲覧が可能なWebサイトである．
+これからその機能と利用方法を解説する．
+\subsection{表示状態について}
+\subsubsection{起動画面と一覧表示}
+まず起動方法としてURL欄に「http://localhost:8080/dleague」を検索する．実行できると図\ref{kidou}のようにチームが全て一覧表示される．
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm]{./kidou.png}
+\caption{D.LEAGUE参画チーム一覧のサイト起動画面}
+\label{kidou}
+\end{figure}
+\subsubsection{詳細表示}
+次に自分のみたいチームのサイトをクリックすると図\ref{syousai}のようにそのチームについての参画年，メインジャンル，在籍人数，優勝履歴（レギュラーシーズンとシーズンチャンピオン），チームリンクサイトが表示される．
+チームリンクサイトをクリックするとさらに外部の公式チームサイトに飛ぶことが可能である（著作権上の問題でリンク先の写真はありません）．また，「右下のD.LEAGUE参画チーム一覧に戻る」をクリックすることで先ほどの一覧表示の画面に戻ることができる．
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./syousai.png}
+\caption{D.LEAGUE参画チーム一覧のサイト詳細画面}
+\label{syousai}
+\end{figure}
+\subsection{利用できる機能について}
+\subsubsection{データ追加}
+ここからこのサイトの利用者全員が行うことができる機能とやり方を紹介する．
+まずデータの追加機能である．最初の起動画面の一番下にある「新チームの追加」というボタンをクリックする．そうすると図\ref{tuika}のような画面が表示される．
+そしたらそれぞれの項目に必要なデータを入力できる．入力する際はチームサイトリンクはurlを入力すること．全ての項目を入力し終えたら，一番下にある送信ボタンを押すことで先ほどの一覧画面に追加される．
+尚，送信ボタンを押したあとは一覧表示の画面に戻る．
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./tuika.png}
+\caption{D.LEAGUE参画チーム一覧のサイトに追加する画面}
+\label{tuika}
+\end{figure}
+\subsubsection{データ編集}
+次にデータの編集機能である．自分が編集したいチームの詳細画面に行くと左下に「編集」とあるのでそれをクリックする．そうすると図\ref{hennsyuu}のような画面が表示される．
+そしたら自分が編集したいところを好きなように編集できる．ただし，編集する際は空白の欄がないようにすることと「id」の項目は編集しないこと．編集を終えたら，一番下にある送信ボタンを押すことで更新される．
+尚，送信ボタンを押したあとは一覧表示の画面に戻る．
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./hennsyuu.png}
+\caption{D.LEAGUE参画チームのサイト詳細を編集する際の画面}
+\label{hennsyuu}
+\end{figure}
+\subsubsection{データ削除}
+最後にデータの削除機能である．自分が編集したいチームの詳細画面に行くと下の真ん中に「削除」とあるのでそれをクリックする．そうすると図\ref{sakujyo}のような画面が表示される．
+本当に消去する場合は「OK」をクリックし，止める場合は「キャンセル」をクリックする．キャンセルボタンを押した場合はチームの詳細画面に戻るが，OKボタンをクリックした場合はチームが削除された上で，他のチームの一覧が表示され．
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./sakujyo.png}
+\caption{D.LEAGUE参画チームのサイトを削除する際の画面}
+\label{sakujyo}
+\end{figure}
+\section{管理者向け仕様書}
+\subsection{インストール方法}
+ターミナルを起動してnodebrewをダウンロードする，まず次のコードを順に起動する．
+[brew install nodebrew]，[nodebrew setup]，[echo 'export PATH=\$HOME/.nodebrew/current/bin:\$PATH' >> \~/.zshrc],[source \~/.zshrc] （〜と/が縦で並んでしまっている場合は半角の〜の後に/を入れる）\\
+次にnode.jsをダウンロードする．ターミナルで次のコードを順に実行する．
+[nodebrew install stable]，[nodebrew ls] ここで使用できるバージョンが表示される．(例:v24.1.0)
+表示がv24.1.0の場合[nodebrew use v24.1.0]
+そのあとは共通で[npm install -g npm]を順に入力し実行する．
+
+\subsection{起動方法}
+app5.jsがあるディレクトリをターミナルで開き，そこでnode app5.jsと入力し実行し「Example app listening on port 8080!」
+と表示されれば無事ポータルが開きサイトが起動できている状態となる．
+\subsection{起動できない場合}
+すでにポータルが開いているにも関わらず実行してしまうケースか，そもそもapp5.jsがあるディレクトリを開いていないのに実行している可能性がある．
+\subsection{終了方法}
+起動したターミナルにおいてcontrol + c を入力することによってサーバーを閉じることができる．
+\subsection{わかっている不具合}
+情報の追加，編集，削除を編集した後，システムの再起動を行うと全てのデータが初期化されてしまう．
+\section{開発者向け仕様書}
+\subsection{一つ目：サーモンラン敵キャラクター一覧表示}
+\subsubsection{概要}
+こちらはゲームスプラトゥーンの協力モード「サーモンラン」に登場する敵キャラクターに
+ついての情報を管理・閲覧するためのWebアプリケーションである．
+敵キャラクターの名前，種類，攻撃方法，討伐方法などの詳細情報を確認できるほか，
+新しい敵情報の登録や，既存情報の修正・削除を行うことができる．
+\subsubsection{HTTPメソッドとリソース名一覧}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{サーモンラン敵キャラクター一覧表示のHTTPとリソース名一覧}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{リソース名}  & \textbf{遷移先} & \textbf{HTTPメソッド}\\ \hline
+    /samoran & samoran.ejs & GET \\ \hline
+    /samoran & samoran.ejs & POST \\ \hline
+    /samoran/create & /public/samoran\_new.html & GET \\ \hline
+    /samoran/:number & samoran\_detail.ejs & GET \\ \hline
+    /samoran/edit/:number & samoran\_edit.ejs & GET \\ \hline
+    /samoran/update/:number & /samoran/update/:number & POST\\ \hline
+    /samoran/delete/:number & /samoran/delete/:number & GET \\ \hline
+  \end{tabular}
+  \label{samoranリソース}
+\end{table}
+\subsubsection{データ構造と遷移図}
+\begin{table}[H]
+  \centering
+  \caption{サーモンラン敵キャラクター一覧表示のデータ構造}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{プロパティ名} & \textbf{説明}  \\ \hline
+    id & システム内で管理される一意のもの \\ \hline
+    name & キャラクターの名前 \\ \hline
+    kind & 敵の種類（大きく三つ） \\ \hline
+    attack & 敵の攻撃方法の結果 \\ \hline
+    deth & 正規の討伐方法 \\ \hline
+    power & 別途討伐方法や特殊な攻略法 \\ \hline
+  \end{tabular}
+  \label{samoran_deta構造}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./samoran.png}
+\caption{遷移図}
+\label{sennizu1}
+\end{figure}
+
+\subsubsection{リソースごとの機能の説明}
+それぞれのリソースの機能についての説明を行う． \\
+/samoran (一覧表示) : サーバー内の配列 samochara の全データを samoran.ejs に渡し，テーブル形式で一覧表示. \\
+/samoran (追加): 送信されたフォームデータを受け取りidをsamochara.length + 1で生成し，オブジェクトを作成して配列にpushし，処理完了後一覧画面を表示．\\
+/samoran/create (追加フォーム) : 静的HTMLファイルによる新規登録入力フォームを表示．\\
+/samoran/:number (詳細表示) : 選択したキャラクターの攻撃方法や討伐方法などの詳細情報を表示．\\
+/samoran/edit/:number (編集) : 既存のデータが入力された状態の編集フォームを表示．\\
+/samoran/update/:number (更新) : データの書き換え完了後一覧画面のURLへ転送され一覧が表示． \\
+/samoran/delete/:number (削除) : データの削除完了後一覧画面のURLへ転送され一覧が表示． \\
+
+\subsection{二つ目：Identity Ⅴ ハンター一覧}
+\subsubsection{概要}
+こちらはスマホゲームIdentity Ⅴ におけるハンターについての情報を管理・閲覧するためのWebアプリケーションである．
+キャラクターについての得意不得意や，普段ゲームをする上で知り得ない小ネタなどの情報も確認できるほか，
+新しいハンターの情報の登録や，既存情報の修正・削除を行うことができる．
+\subsubsection{HTTPメソッドとリソース名一覧}
+\begin{table}[H]
+  \centering
+  \small
+  \caption{第五人格ハンター一覧表示のHTTPとリソース名一覧}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{リソース名}  & \textbf{遷移先} & \textbf{HTTPメソッド}\\ \hline
+    /daigo & daigo.ejs & GET \\ \hline
+    /daigo & daigo.ejs & POST \\ \hline
+    /daigo/create & /public/daigo\_new.html & GET \\ \hline
+    /daido/:number & daigo\_detail.ejs & GET \\ \hline
+    /daigo/edit/:number & daigo\_edit.ejs & GET \\ \hline
+    /daigo/update/:number & /daigo/update/:number & POST\\ \hline
+    /daigo/delete/:number & /daigo/delete/:number & GET \\ \hline
+  \end{tabular}
+  \label{daigoリソース}
+\end{table}
+
+\subsubsection{データ構造と遷移図}
+\begin{table}[H]
+  \centering
+  \caption{第五人格ハンター一覧表示のデータ構造}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{プロパティ名} & \textbf{説明}  \\ \hline
+    id & システム内で管理される一意のもの \\ \hline
+    name & キャラクターの名前 \\ \hline
+    real & キャラクターの個人の名前 \\ \hline
+    birth & キャラクターの誕生日 \\ \hline
+    weapon & キャラクターの使用武器 \\ \hline
+    subw & キャラクターの別の攻撃手段，武器 \\ \hline
+    str & キャラクターの強み \\ \hline
+    less & キャラクターの弱点 \\ \hline
+    dif & キャラクターの使用難易度\\ \hline
+  \end{tabular}
+  \label{daigo_deta構造}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./samoran.png}
+\caption{遷移図}
+\label{sennizu1}
+\end{figure}
+\subsubsection{リソースごとの機能の説明}
+それぞれのリソースの機能についての説明を行う． \\
+/daigo (一覧表示) : サーバー内の配列hunterの全データをdaigo.ejsに渡し，テーブル形式で一覧表示. \\
+/daigo (追加): 送信されたフォームデータを受け取りidをhunter.length + 1で生成し，オブジェクトを作成して配列にpushし，処理完了後一覧画面を表示．\\
+/daigo/create (追加フォーム) : 静的HTMLファイルによる新規登録入力フォームを表示．\\
+/daigo/:number (詳細表示) : 選択したキャラクターの攻撃方法や討伐方法などの詳細情報を表示．\\
+/daigo/edit/:number (編集) : 既存のデータが入力された状態の編集フォームを表示．\\
+/daigo/update/:number (更新) : データの書き換え完了後一覧画面のURLへ転送され一覧が表示． \\
+/daigo/delete/:number (削除) : データの削除完了後一覧画面のURLへ転送され一覧が表示． \\
+
+
+\subsection{三つ目：D.LEAGUE 参画チーム一覧}
+\subsubsection{概要}
+こちらはプロダンスリーグD.LEAGUEにおける現シーズン25-26SEASONに参画しているチームについての情報を管理・閲覧するためのWebアプリケーションである．
+D.LEAGUEを観戦していく中でそのチームについての情報や特色を確認することができたり，
+新しいチームの情報の登録や，既存情報の修正・削除を行うことができる．
+\subsubsection{HTTPメソッドとリソース名一覧}
+\begin{table}[H]
+  \centering
+  \small
+  \caption{D.LEAGUE参画チーム一覧表示のHTTPとリソース名一覧}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \textbf{リソース名}  & \textbf{遷移先} & \textbf{HTTPメソッド}\\ \hline
+    /dleague & dleague.ejs & GET \\ \hline
+    /dleague & dleague.ejs & POST \\ \hline
+    /dleague/create & /public/dleague\_new.html & GET \\ \hline
+    /dleague/:number & dleague\_detail.ejs & GET \\ \hline
+    /dleague/edit/:number & dleague\_edit.ejs & GET \\ \hline
+    /dleague/update/:number & /dleague/update/:number & POST\\ \hline
+    /dleague/delete/:number & /dleague/delete/:number & GET \\ \hline
+  \end{tabular}
+  \label{dleagueリソース}
+\end{table}
+\subsubsection{データ構造}
+\subsubsection{データ構造と遷移図}
+\begin{table}[H]
+  \centering
+  \caption{第五人格ハンター一覧表示のデータ構造}
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{プロパティ名} & \textbf{説明}  \\ \hline
+    id & システム内で管理される一意のもの \\ \hline
+    name & キャラクターの名前 \\ \hline
+    join & D.LEAGUEに参画したSEASON \\ \hline
+    main & チームのメインダンスジャンル \\ \hline
+    people & チームの在籍人数 \\ \hline
+    win & チームの優勝回数 \\ \hline
+    url & そのチームの公式サイトに飛ぶurl \\ \hline
+  \end{tabular}
+  \label{dleague_deta構造}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm]{./dleague.png}
+\caption{遷移図}
+\label{sennizu3}
+\end{figure}
+\subsubsection{リソースごとの機能の説明}
+それぞれのリソースの機能についての説明を行う． \\
+/dleague (一覧表示) : サーバー内の配列teamsの全データをdleague.ejsに渡し，テーブル形式で一覧表示. \\
+/dleague (追加): 送信されたフォームデータを受け取りidをteams.length + 1で生成し，オブジェクトを作成して配列にpushし，処理完了後一覧画面を表示．\\
+/dleague/create (追加フォーム) : 静的HTMLファイルによる新規登録入力フォームを表示．\\
+/dleague/:number (詳細表示) : 選択したキャラクターの攻撃方法や討伐方法などの詳細情報を表示．\\
+/dleague/edit/:number (編集) : 既存のデータが入力された状態の編集フォームを表示．\\
+/dleague/update/:number (更新) : データの書き換え完了後一覧画面のURLへ転送され一覧が表示． \\
+/dleague/delete/:number (削除) : データの削除完了後一覧画面のURLへ転送され一覧が表示． \\
+\end{document}

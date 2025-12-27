@@ -335,7 +335,7 @@ app.get("/dleague/edit/:number", (req, res) => {
 
 app.post("/dleague/update/:number", (req, res) => {
   const number = req.params.number;
-  if (temas[number]) {
+  if (teams[number]) {
     teams[number].id = req.body.code;
     teams[number].name = req.body.name;
     teams[number].join = req.body.join;
