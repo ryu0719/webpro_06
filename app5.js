@@ -138,15 +138,16 @@ app.get("/samoran/delete/:number",(req,res)=>{
 });
 
 app.post("/samoran",(req,res)=>{
-  const id = samochara.length + 1;
   const code = req.body.code;
   const name = req.body.name;
   const kind = req.body.kind;
   const attack = req.body.attack;
   const deth = req.body.deth;
   const power = req.body.power;
-  let new_id = 1;
-  new_id = samochara[samochara - 1].id + 1;
+  let id = 1;
+  if (samochara.length > 0) {
+    id = samochara[samochara.length - 1].id + 1;
+  }
   samochara.push({ id: id, code: code, name: name, kind: kind, attack: attack, deth: deth, power: power});
   console.log(samochara);
   res.render('samoran',{data: samochara});
@@ -230,7 +231,6 @@ app.get("/daigo/delete/:number",(req,res)=>{
 });
 
 app.post("/daigo",(req,res)=>{
-  const id = hunter.length + 1;
   const code = req.body.code;
   const name = req.body.name;
   const real = req.body.real;
@@ -240,8 +240,10 @@ app.post("/daigo",(req,res)=>{
   const str = req.body.str;
   const less = req.body.less;
   const dif = req.body.dif;
-  let new_id = 1;
-  new_id = hunter[hunter - 1].id + 1;
+  let id = 1;
+  if (hunter.length > 0) {
+    id = hunter[hunter.length - 1].id + 1;
+  }
   hunter.push({ id: id, code: code, name: name, real:real, birth: birth, weapon: weapon, subw:subw,str: str,less:less,dif: dif});
   console.log(hunter);
   res.render('daigo',{data: hunter});
@@ -309,7 +311,6 @@ app.get("/dleague/delete/:number",(req,res)=>{
 });
 
 app.post("/dleague",(req,res)=>{
-  const id = teams.length + 1;
   const code = req.body.code;
   const name = req.body.name;
   const join = req.body.join;
@@ -317,8 +318,10 @@ app.post("/dleague",(req,res)=>{
   const people= req.body.people;
   const win = req.body.win;
   const url= req.body.url;
-  let new_id = 1;
-  new_id = teams[teams - 1].id + 1;
+  let id = 1;
+  if (teams.length > 0) {
+    id = teams[teams.length - 1].id + 1;
+  }
   teams.push({ id: id, code: code, name: name, join:join, main: main, people: people, win:win,url: url});
   console.log(teams);
   res.render('dleague',{data: teams});
