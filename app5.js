@@ -145,6 +145,8 @@ app.post("/samoran",(req,res)=>{
   const attack = req.body.attack;
   const deth = req.body.deth;
   const power = req.body.power;
+  let new_id = 1;
+  new_id = samochara[samochara - 1].id + 1;
   samochara.push({ id: id, code: code, name: name, kind: kind, attack: attack, deth: deth, power: power});
   console.log(samochara);
   res.render('samoran',{data: samochara});
@@ -238,6 +240,8 @@ app.post("/daigo",(req,res)=>{
   const str = req.body.str;
   const less = req.body.less;
   const dif = req.body.dif;
+  let new_id = 1;
+  new_id = hunter[hunter - 1].id + 1;
   hunter.push({ id: id, code: code, name: name, real:real, birth: birth, weapon: weapon, subw:subw,str: str,less:less,dif: dif});
   console.log(hunter);
   res.render('daigo',{data: hunter});
@@ -265,6 +269,80 @@ app.post("/daigo/update/:number", (req, res) => {
   res.redirect('/daigo');
 });
 
+
+let teams= [
+  {id:1, name: "avex ROYALBRATS",join:"20-21Season",main:"Hiphop",people:"13人",win:"20-21Season Champion",url:"https://home.dleague.co.jp/teams/tah0/"},
+  {id:2, name: "Benefit one MONOLIZ",join:"20-21Season",main:"VOUGE",people:"13人",win:"なし",url:"https://home.dleague.co.jp/teams/tbvh/"},
+  {id:3, name: "CHANGE RAPTURES",join:"25-26Season(20-21Season〜24-25SeasonまでSEPTENI RAPTURESとして活動)",main:"Hiphop",people:"15人",win:"なし",url:"https://home.dleague.co.jp/teams/tqog/"},
+  {id:4, name: "Cyber Agent Legit",join:"20-21Season",main:"poppin,lockin",people:"13人",win:"22-23Season〜24-25Season Regular Campion,24-25Season Champion",url:"http://home.dleague.co.jp/teams/t0m9/"},
+  {id:5, name: "dip BATTLES",join:"20-21Season",main:"poppin,lockin",people:"18人",win:"なし",url:"https://home.dleague.co.jp/teams/t2ls/"},
+  {id:6, name: "DYM MESSENGERS",join:"23-24Season",main:"R&B",people:"14人",win:"なし",url:"https://home.dleague.co.jp/teams/t5fa/"},
+  {id:7, name: "FULLCAST RAISERZ",join:"20-21Season",main:"Krump",people:"13人",win:"20-21Season Regular Champion",url:"https://home.dleague.co.jp/teams/ttr7/"},
+  {id:8, name: "KADOKAWA DREAMS",join:"20-21Season",main:"Hiphop",people:"15人",win:"22-23Season〜23-24Season Champion",url:"https://home.dleague.co.jp/teams/twme/"},
+  {id:9, name: "KOSE 8ROCKS",join:"20-21Season",main:"Breakin",people:"13人",win:"21-22Season Champion",url:"https://home.dleague.co.jp/teams/tmbp/"},
+  {id:10, name: "LDH SCREAM",join:"25-26Season",main:"Hiphop",people:"11人",win:"なし",url:"https://home.dleague.co.jp/teams/sng6/"},
+  {id:11, name: "LIFUL ALT-RHYTHM",join:"20-21Season",main:"Hiphop,lockin,Wack",people:"11人",win:"なし",url:"https://home.dleague.co.jp/teams/tl6e/"},
+  {id:12, name: "List:X",join:"24-25Season",main:"Hiphop",people:"16人",win:"なし",url:"https://home.dleague.co.jp/teams/h7x3/"},
+  {id:13, name: "Medial Concierge I'moon",join:"23-24Season(20-21Season〜22-23Seasonまで U-SEN NEXT I'moonとして活動)",main:"Girls",people:"15人",win:"なし",url:"https://home.dleague.co.jp/teams/thrd/"},
+  {id:14, name: "M&A SOUKEN QUANTS",join:"25-26Season",main:"Animation",people:"13人",win:"なし",url:"https://home.dleague.co.jp/teams/tv2x/"},
+  {id:15, name: "SEGA SUMMY LUX",join:"20-21Season",main:"Hiphop",people:"15人",win:"21-22Season Regular Champion",url:"https://home.dleague.co.jp/teams/t1kf/"},
+  {id:16, name: "Valuence INFINITIES",join:"22-23Season",main:"Hiphop,breakin,popin",people:"14人",win:"なし",url:"https://home.dleague.co.jp/teams/t2ui/"},
+];
+
+app.get("/dleague",(req,res)=>{
+  res.render('dleague',{data:teams});
+});
+
+app.get("/dleague/create",(req,res)=>{
+  res.redirect('/public/dleague_new.html');
+});
+
+app.get("/dleague/:number",(req,res)=>{
+  const number = req.params.number;
+  const detail = teams[number];
+  res.render('dleague_detail',{id:number,data:detail});
+});
+
+app.get("/dleague/delete/:number",(req,res)=>{
+  teams.splice(req.params.number,1);
+  res.redirect('/dleague');
+});
+
+app.post("/dleague",(req,res)=>{
+  const id = teams.length + 1;
+  const code = req.body.code;
+  const name = req.body.name;
+  const join = req.body.join;
+  const main = req.body.main;
+  const people= req.body.people;
+  const win = req.body.win;
+  const url= req.body.url;
+  let new_id = 1;
+  new_id = teams[teams - 1].id + 1;
+  teams.push({ id: id, code: code, name: name, join:join, main: main, people: people, win:win,url: url});
+  console.log(teams);
+  res.render('dleague',{data: teams});
+});
+
+app.get("/dleague/edit/:number", (req, res) => {
+  const number = req.params.number;
+  const detail = teams[number];
+  res.render('dleague_edit', { number: number, data: detail });
+});
+
+app.post("/dleague/update/:number", (req, res) => {
+  const number = req.params.number;
+  if (temas[number]) {
+    teams[number].id = req.body.code;
+    teams[number].name = req.body.name;
+    teams[number].join = req.body.join;
+    teams[number].main = req.body.main;
+    teams[number].people = req.body.people;
+    teams[number].win = req.body.win; 
+    teams[number].url = req.body.url;
+  }
+  res.redirect('/dleague');
+});
 app.get("/keiyo_add", (req, res) => {
   let id = req.query.id;
   let code = req.query.code;

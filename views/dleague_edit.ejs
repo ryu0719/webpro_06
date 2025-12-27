@@ -1,0 +1,24 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/dleague/update/<%= number %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+      <tr><td>ID</td><td><input type="text" name="code" value="<%= data.id %>"></td></tr>
+      <tr><td>チーム名</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+      <tr><td>参画年</td><td><input type="text" name="join" value="<%= data.join %>"></td></tr>
+      <tr><td>メインジャンル</td><td><input type="text" name="main" value="<%= data.main %>"></td></tr>
+      <tr><td>在籍人数</td><td><input type="text" name="people" value="<%= data.people %>"></td></tr>
+      <tr><td>優勝履歴</td><td><input type="text" name="win" value="<%= data.win %>"></td></tr>
+      <tr><td>チームリンクサイト</td><td><input type="text" name="url" value="<%= data.url %>"></td></tr>
+    </table>
+    <input type="submit" values="登録">
+  </form>
+  <a href="/dleague/">D.LEAGUE参画チーム一覧に戻る</a>
+</body>
+</html>
